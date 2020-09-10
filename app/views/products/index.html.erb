@@ -1,3 +1,12 @@
 <% @products.each do |product| %>
   <%= product.id %>
 <% end %>
+
+<%= form_for :upload, :url => {:action=>:upload}, :html=>{:multipart=>true} do |f| %>
+  <%= f.file_field :file %>
+  <%= f.submit 'Upload' %>
+<% end %>
+
+<p>teste</p>
+
+<p>pe</p>
