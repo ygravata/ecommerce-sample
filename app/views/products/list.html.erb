@@ -2,6 +2,7 @@
 <div class="gravata-container">
 
     <h2 class="heading-title mt-2">Products Management</h2>
+    <p style="font-size: 18px;">Include bellow a YAML file to add a set of new products, or click the button "New Product" to add a new one.</p>
 
   <div class="input-file">
     <%= form_for :upload, :url => {:action=>:upload}, :html=>{:multipart=>true} do |f| %>
@@ -28,17 +29,21 @@
           <tr>
             <td><%= product.id %></td>
             <th scope="row"><%= product.created_at.strftime("%d/%m") %></th>
-            <td><%= product.name %></td>
+            <td ><%= product.name %></td>
             <td><%= product.brand %></td>
             <td><%= product.category %></td>
-            <td>R$ <%= number_with_precision(product.price, precision: 2) %> </td>
+            <% if product.price.nil? %>
+              <td style="background-color:red;"> Set a price! </td>
+            <% else %>
+              <td>R$ <%= number_with_precision(product.price, precision: 2) %> </td>
+            <% end %>
             <td>
               <%= link_to edit_product_path(product) do %>
                 <i class="far fa-edit pt-1" style="font-size: 18px; color:white;"></i>
               <% end %>
             </td>
             <td>
-              <%= link_to products_path, method: :delete, data: { confirm: 'Are you sure?'} do %>
+              <%= link_to product_path(product), method: :delete, data: { confirm: 'Are you sure?'} do %>
                 <i class="fas fa-trash-alt pt-1" style="font-size: 18px; color:white;"></i>
               <% end %>
             </td>

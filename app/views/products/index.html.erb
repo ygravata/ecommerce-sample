@@ -5,24 +5,24 @@
   </div>
 
 
-
-
 <div class="row justify-content-around pt-5" style="margin-right: 0px; margin-left: 0px;">
 
   <% @products.each do |product|%>
 
-    <div class="card m-2 text-center" style="width: 18rem; border-radius: 8px;">
+    <% unless product.price.nil? %>
+      <div class="card m-2 text-center" style="width: 18rem; border-radius: 8px;">
 
-      <%= image_tag product.image_url, size: "280x280",
-      src: 'Image Not Found',
-      onerror: 'this.error=null;this.src="https://i.pinimg.com/originals/b2/a1/81/b2a1819f5aae2d868b410e1aff64bf29.jpg"', class: 'card-img-top', style: "border-radius: 8px;" %>
+        <%= image_tag product.image_url, size: "280x280",
+        src: 'Image Not Found',
+        onerror: 'this.error=null;this.src="https://i.pinimg.com/originals/b2/a1/81/b2a1819f5aae2d868b410e1aff64bf29.jpg"', class: 'card-img-top', style: "border-radius: 8px;" %>
 
-      <div class="card-body">
-        <h5 class="card-title" style="color:#161D28;"><%= product.name %></h5>
-        <p class="card-text" style="color:#161D28;  font-weight: bold; font-size: 18px;">R$ <%= product.price %></p>
-        <%= link_to "See details", product_path(product), class:"btn", style:"color:white; background-color:#72B8DB;" %>
+        <div class="card-body">
+          <h5 class="card-title" style="color:#161D28;"><%= product.name %></h5>
+          <p class="card-text" style="color:#161D28;  font-weight: bold; font-size: 18px;">R$ <%= product.price %></p>
+          <%= link_to "See details", product_path(product), class:"btn", style:"color:white; background-color:#72B8DB;" %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
   <% end %>
 

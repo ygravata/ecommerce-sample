@@ -1,0 +1,39 @@
+<%= simple_form_for @product,
+   wrapper: :horizontal_form,
+  wrapper_mappings: {
+    boolean:       :horizontal_boolean,
+    check_boxes:   :horizontal_collection,
+    date:          :horizontal_multi_select,
+    datetime:      :horizontal_multi_select,
+    file:          :horizontal_file,
+    radio_buttons: :horizontal_collection,
+    range:         :horizontal_range,
+    time:          :horizontal_multi_select
+  } do |f| %>
+
+  <%= f.error_notification %>
+
+  <%= f.input :name %>
+
+  <%= f.input :brand  %>
+
+  <%= f.input :category %>
+
+  <%= f.input :image_url %>
+
+  <%= f.input :for %>
+
+  <%= f.input :desc1 %>
+
+  <%= f.input :desc2 %>
+  <%= f.input :specs_name %>
+  <%= f.input :specs_desc %>
+  <%= f.input :price %>
+
+  <div class="form-group row mb-0">
+    <div class="col-sm-9 offset-sm-3">
+      <%= f.button :submit, class: "btn-primary" %>
+      <%= f.button :button, "Erase", type: "reset", class: "btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>
