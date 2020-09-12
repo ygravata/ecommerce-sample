@@ -1,22 +1,13 @@
-<div style="text-align:right;" >
-  <%= link_to "", destroy_user_session_path, class: "fas fa-sign-out-alt logout-icon", method: :delete %>
-</div>
 
 <div class="gravata-container">
-  <div class="sales-heading">
-    <h2 class="heading-title">Products Management</h2>
-    <h2>Accumulated total gross income: <span class="total-sales-highlight">R$ %></span></h2>
-    <div class="d-flex">
-      <h2 class="last-input-heading pr-2">Your last input gross income: <span class="input-sales-highlight">R$ %></span></h2>
-      <% if !@user_last_input.nil? && policy(@user_last_input).destroy? %>
-        <%= link_to @user_last_input, method: :delete, data: { confirm: 'Are you sure?'} do %>
-          <i class="fas fa-trash-alt pt-1" style="font-size: 22px; color:white;"></i>
-          <% end %>
-      <% end %>
-    </div>
-  </div>
+
+    <h2 class="heading-title mt-2">Products Management</h2>
 
   <div class="input-file">
+    <%= form_for :upload, :url => {:action=>:upload}, :html=>{:multipart=>true} do |f| %>
+      <%= f.file_field :file %>
+      <%= f.submit 'Upload' %>
+    <% end %>
   </div>
 
   <table class="table table-dark table-style">
@@ -28,7 +19,8 @@
         <th scope="col">Brand</th>
         <th scope="col">Category</th>
         <th scope="col">Price</th>
-        <th scope="col"></th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -41,10 +33,13 @@
             <td><%= product.category %></td>
             <td>R$ <%= number_with_precision(product.price, precision: 2) %> </td>
             <td>
-              <% if product.user == current_user %>
-                <%= link_to products_path, method: :delete, data: { confirm: 'Are you sure?'} do %>
-                  <i class="fas fa-trash-alt pt-1" style="font-size: 18px; color:white;"></i>
-                <% end %>
+              <%= link_to edit_product_path(product) do %>
+                <i class="far fa-edit pt-1" style="font-size: 18px; color:white;"></i>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to products_path, method: :delete, data: { confirm: 'Are you sure?'} do %>
+                <i class="fas fa-trash-alt pt-1" style="font-size: 18px; color:white;"></i>
               <% end %>
             </td>
           </tr>
@@ -54,7 +49,3 @@
 </div>
 
 
-<%= form_for :upload, :url => {:action=>:upload}, :html=>{:multipart=>true} do |f| %>
-  <%= f.file_field :file %>
-  <%= f.submit 'Upload' %>
-<% end %>

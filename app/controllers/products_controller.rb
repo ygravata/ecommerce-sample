@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
   def upload
     @result = YAML.load_file(params[:upload][:file])
     add_products(@result)
+    redirect_to(list_products_path)
   end
 
   def list
