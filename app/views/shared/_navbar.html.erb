@@ -1,35 +1,44 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to "#", class: "navbar-brand" do %>
-    <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+<div class="container-fluid" style="padding-right: 0px; padding-left: 0px;"class="container" style="padding-left: 0px; padding-right: 0px;">
+
+  <div class="navbar navbar-expand-lg navbar bg justify-content-around" style=" background-color: white;">
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag("stroller-logo.jpg", height: 80, width: 80) %>
     <% end %>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <div class="d-flex search-margin">
+      <%= form_tag products_path, method: :get do %>
+        <%= text_field_tag :query, params[:query], class: "form-control form-rounded", style: "width:600px;", placeholder: "What product are you looking for?" %>
+      <% end %>
+      <%= submit_tag "Search", class: "btn form-rounded ml-1 mr-4", style: "background-color: #78C3EB; color: white;"%>
 
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
-          <%= link_to "Home", "#", class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Messages", "#", class: "nav-link" %>
-        </li>
-        <li class="nav-item dropdown">
-          <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+
+        <li class="nav-item dropdown" style="list-style: none;">
+
+          <i class="fas fa-user-circle avatar dropdown"  id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#78C3EB; font-size: 38px;"></i>
+
+
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <%= link_to "Action", "#", class: "dropdown-item" %>
-            <%= link_to "Another action", "#", class: "dropdown-item" %>
+            <%= link_to "New product", new_product_path, class: "dropdown-item" %>
+            <!--            <%= link_to "Another action", "#", class: "dropdown-item" %> -->
             <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
           </div>
         </li>
+
       <% else %>
-        <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+
+        <li class="nav-item d-flex" style="list-style: none;">
+          <%= link_to new_user_session_path, class: "fas fa-sign-in-alt text-center", style: "color: #78C3EB;" do %>
+          <p class="text-center ml-2 mb-0 mt-2" style="color: #78C3EB;">Login</p>
+          <% end %>
         </li>
+
       <% end %>
-    </ul>
+
+    </div>
+
+
+    <%= link_to products_path, class: "fas fa-shopping-cart", style: "color: #78C3EB; font-size:22px;" do %>
+    <% end %>
+
   </div>
-</div>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :products do
     collection do
       post 'upload'
+      get 'list'
     end
   end
 end

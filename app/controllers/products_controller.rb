@@ -8,12 +8,16 @@ class ProductsController < ApplicationController
   def upload
     @result = YAML.load_file(params[:upload][:file])
     add_products(@result)
-    raise
+  end
+
+  def list
+    @products = Product.all.order(created_at: :desc)
   end
 
 
-  def add_products(products)
+  private
 
+  def add_products(products)
     products.each do |product|
       new_product = Product.new(
         name: product['name'],
