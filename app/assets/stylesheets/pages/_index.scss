@@ -1,2 +1,68 @@
 // Import page-specific CSS files here.
 @import "home";
+@import "devise";
+
+.input-file {
+  width: 500px;
+  text-align: left;
+  justify-items: left;
+  padding-top: 20px;
+  padding-left: 24px;
+  padding-bottom: 10px;
+}
+
+.input-buttom-div {
+  padding-left: 110px;
+}
+
+.input-buttom {
+  background-color: #9A3337;
+  color:white;
+  border: 1px solid #c33;
+  &:hover {
+    background-color: #CC3333;
+    color: white;
+  }
+}
+
+.form-div {
+  background-color:#263241;
+  padding: 32px 32px 26px 32px;
+  border-radius: 4px;
+}
+
+.form-title {
+  padding-bottom: 28px;
+}
+
+.sales-heading {
+  padding-left: 22px;
+  text-align: left;
+  justify-items: left;
+}
+
+.last-input-heading {
+  font-size:24px;
+}
+
+.total-sales-highlight {
+  background-color: #339933;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.input-sales-highlight {
+  background-color: #028DBC;
+  padding: 6px;
+  border-radius: 8px;
+}
+
+.table-style {
+  font-size:14px;
+  text-align:center;
+  vertical-align: center;
+  padding-left:22px;
+  background-color: #263241;
+  color: white;
+  padding-top: 22px;
+}
