@@ -7,5 +7,8 @@ Rails.application.routes.draw do
       post 'upload'
       get 'list'
     end
+    member do
+      patch 'add_to_cart'
+    end
   end
 end

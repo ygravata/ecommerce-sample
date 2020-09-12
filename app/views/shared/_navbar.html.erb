@@ -51,8 +51,11 @@
 
     </div>
 
-
-    <%= link_to products_path, class: "fas fa-shopping-cart", style: "color: #78C3EB; font-size:22px;" do %>
-    <% end %>
-
+    <div class="d-flex" style="position:relative;">
+      <%= link_to products_path, class: "fas fa-shopping-cart", style: "color: #78C3EB; font-size:32px;" do %>
+      <% end %>
+      <% if !@cart_products_count.nil? && @cart_products_count > 0 %>
+        <p class="text-center mb-0" style="position:absolute; margin-left: 22px; margin-top: 18px; font-size: 16px; border-radius: 50%; background-color: green; color:white; width: 22px; height: 22px"><%= @cart_products_count %></p>
+      <% end %>
+    </div>
   </div>

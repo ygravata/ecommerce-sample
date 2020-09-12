@@ -1,9 +1,13 @@
 class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :cart_find, only: [:add_to_cart, :index]
 
   def index
     @products = Product.all.order(created_at: :desc)
+    unless @cart.nil?
+      @cart_products_count = @cart.cart_products.count
+    end
   end
 
   def show
@@ -33,6 +37,23 @@ class ProductsController < ApplicationController
     redirect_to list_products_path
   end
 
+  def add_to_cart
+    unless @cart
+      @cart = Cart.new(status: "Active", user: current_user)
+      @cart.save
+    end
+
+    @cart_product = CartProduct.new(quantity: 1)
+    @cart_product.cart = @cart
+    @cart_product.product = Product.find(params[:id])
+
+    # authorize @cart_product
+
+    if @cart_product.save
+        redirect_to products_path, notice: 'Product added to cart!'
+    end
+  end
+
   private
 
   def product_params
@@ -43,6 +64,12 @@ class ProductsController < ApplicationController
   def set_product
     @product = Product.find(params[:id])
     # authorize @product
+  end
+
+  def cart_find
+    if !current_user.nil?
+      @cart = current_user.carts.find_by_status("Active")
+    end
   end
 
   def add_products(products)
@@ -66,5 +93,6 @@ class ProductsController < ApplicationController
       new_product.save!
     end
   end
+
 
 end

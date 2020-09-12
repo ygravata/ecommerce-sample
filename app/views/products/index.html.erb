@@ -20,6 +20,11 @@
           <h5 class="card-title" style="color:#161D28;"><%= product.name %></h5>
           <p class="card-text" style="color:#161D28;  font-weight: bold; font-size: 18px;">R$ <%= product.price %></p>
           <%= link_to "See details", product_path(product), class:"btn", style:"color:white; background-color:#72B8DB;" %>
+
+          <%= link_to add_to_cart_product_path(product), method: :patch  do %>
+            <i class="fas fa-cart-plus"></i>
+          <% end %>
+
         </div>
       </div>
     <% end %>
