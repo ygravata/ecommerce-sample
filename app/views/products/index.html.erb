@@ -12,17 +12,17 @@
     <% unless product.price.nil? %>
       <div class="card m-2 text-center" style="width: 18rem; border-radius: 8px;">
 
+      <%= link_to product_path(product), style:"text-decoration:none;" do %>
         <%= image_tag product.image_url, size: "280x280",
         src: 'Image Not Found',
         onerror: 'this.error=null;this.src="https://i.pinimg.com/originals/b2/a1/81/b2a1819f5aae2d868b410e1aff64bf29.jpg"', class: 'card-img-top', style: "border-radius: 8px;" %>
+      <% end %>
 
         <div class="card-body">
-          <h5 class="card-title" style="color:#161D28;"><%= product.name %></h5>
+            <h5 class="card-title" style="color:#161D28;"><%= product.name %></h5>
           <p class="card-text" style="color:#161D28;  font-weight: bold; font-size: 18px;">R$ <%= number_with_precision(product.price, precision: 2) %></p>
-          <%= link_to "See details", product_path(product), class:"btn", style:"color:white; background-color:#72B8DB;" %>
-
-          <%= link_to add_to_cart_product_path(product), method: :patch  do %>
-            <i class="fas fa-cart-plus"></i>
+          <%= link_to add_to_cart_product_path(product),method: :patch, class:"btn", style:"color:white; background-color:#72B8DB;" do %>
+            Add to cart <i class="fas fa-cart-plus"></i>
           <% end %>
 
         </div>

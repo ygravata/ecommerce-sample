@@ -9,6 +9,8 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @cart_product = CartProduct.new
+    # @review = Review.new
   end
 
   def upload

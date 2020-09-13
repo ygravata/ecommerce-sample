@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'products#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   resources :products do
+    resources :cart_products, only: [:new, :create]
     collection do
       post 'upload'
       get 'list'
@@ -14,8 +15,8 @@ Rails.application.routes.draw do
   resources :carts, only: [:index, :update, :show] do
     resources :cart_products, only: [:udpate, :destroy]
     member do
-      patch 'checkout'
       get 'checkout'
+      patch 'checkout'
     end
   end
 end
