@@ -1,0 +1,43 @@
+<div style="height:100vh;">
+
+  <h2 class="text-center pt-3 " style="font-size: 50px;font-weight:bold; color:white;">Thank you for choosing us!</h2>
+  <p style="font-size: 20px;font-weight:bold; color:white;">Your order request:</p>
+
+  <div class="row pb-5">
+
+    <% unless @inactive_cart.nil? %>
+
+      <div class="col-6">
+
+        <% @inactive_cart.cart_products.each do |cart_product| %>
+
+          <div class="card-product">
+            <%= image_tag cart_product.product.image_url,
+            src: 'Image Not Found',
+            onerror: 'this.error=null;this.src="https://i.pinimg.com/originals/b2/a1/81/b2a1819f5aae2d868b410e1aff64bf29.jpg"' %>
+            <div class="d-flex justify-content-between" style="width:75%;">
+
+              <div class="card-product-infos">
+                <h2 class="card-product-title"><%= cart_product.product.name %></h2>
+                <p class="info-quantity card-product-paragraph">Quantity: <%= cart_product.quantity %></p>
+              </div>
+              <p class="align-self-center info-price">R$ <%= number_with_precision(cart_product.product.price * cart_product.quantity, precision: 2) %></p>
+            </div>
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+    <div class="col-6">
+
+      <div class="card-product justify-content-around">
+        <h2 class="card-checkout-total">Total</h2>
+        <h2 class="card-checkout-total">R$ <%= number_with_precision(@total, precision: 2) %></h2>
+      </div>
+
+    </div>
+  </div>
+</div>

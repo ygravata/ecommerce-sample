@@ -1,0 +1,60 @@
+.card-product {
+  overflow: hidden;
+  height: 120px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  margin: 4px 0px;
+}
+
+.card-product img {
+  height: 100%;
+  width: 120px;
+  object-fit: cover;
+}
+
+.card-product-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product-paragraph{
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: .7;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+.card-product .card-product-infos {
+  padding: 16px;
+}
+
+
+.info-price {
+  font-size:18px;
+}
+
+.card-checkout-total{
+  font-size: 22px;
+}
+
+.card-total{
+  overflow: hidden;
+  /* height: 120px; */
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  /* display: flex; */
+  align-items: center;
+  margin: 4px 0px;
+}
+
+.card-total-title {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  padding-top: 20px;
+}

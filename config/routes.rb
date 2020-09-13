@@ -11,4 +11,11 @@ Rails.application.routes.draw do
       patch 'add_to_cart'
     end
   end
+  resources :carts, only: [:index, :update, :show] do
+    resources :cart_products, only: [:udpate, :destroy]
+    member do
+      patch 'checkout'
+      get 'checkout'
+    end
+  end
 end

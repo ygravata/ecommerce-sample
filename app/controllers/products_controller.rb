@@ -1,13 +1,11 @@
 class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :cart_find, only: [:add_to_cart, :index]
+  before_action :cart_find
+  before_action :cart_items_count
 
   def index
     @products = Product.all.order(created_at: :desc)
-    unless @cart.nil?
-      @cart_products_count = @cart.cart_products.count
-    end
   end
 
   def show
@@ -43,9 +41,14 @@ class ProductsController < ApplicationController
       @cart.save
     end
 
-    @cart_product = CartProduct.new(quantity: 1)
-    @cart_product.cart = @cart
-    @cart_product.product = Product.find(params[:id])
+    if @cart.cart_products.find_by_product_id(params[:id])
+      @cart_product = @cart.cart_products.find_by_product_id(params[:id])
+      @cart_product.quantity += 1
+    else
+      @cart_product = CartProduct.new(quantity: 1)
+      @cart_product.cart = @cart
+      @cart_product.product = Product.find(params[:id])
+    end
 
     # authorize @cart_product
 
@@ -69,6 +72,16 @@ class ProductsController < ApplicationController
   def cart_find
     if !current_user.nil?
       @cart = current_user.carts.find_by_status("Active")
+    end
+  end
+
+  def cart_items_count
+    @cart_items_count = 0
+
+    unless @cart.nil?
+      @cart.cart_products.each do |cart_product|
+        @cart_items_count += cart_product.quantity
+      end
     end
   end
 

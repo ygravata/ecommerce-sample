@@ -1,0 +1,70 @@
+<div style="height:100vh;">
+
+  <% unless @cart.nil? %>
+
+    <h2 class="text-left pt-3 " style="font-size: 40px;font-weight:bold; color:white;">Your items:</h2>
+
+    <div class="row pb-5">
+
+      <div class="col-6">
+        <% @cart.cart_products.each do |cart_product| %>
+
+          <div class="card-product">
+            <%= image_tag cart_product.product.image_url,
+            src: 'Image Not Found',
+            onerror: 'this.error=null;this.src="https://i.pinimg.com/originals/b2/a1/81/b2a1819f5aae2d868b410e1aff64bf29.jpg"' %>
+            <div class="d-flex justify-content-between" style="width:75%;">
+              <div class="card-product-infos">
+                <h2 class="card-product-title"><%= cart_product.product.name %></h2>
+                <p class="info-quantity card-product-paragraph">Quantity <%= cart_product.quantity %></p>
+              </div>
+              <p class="align-self-center info-price">R$ <%= number_with_precision(cart_product.product.price * cart_product.quantity, precision: 2) %></p>
+            </div>
+          </div>
+
+        <% end %>
+
+      </div>
+
+      <div class="col-6">
+
+        <div class="card-total">
+          <h2 class="card-total-title">Checkout</h2>
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Subtotal
+              <span>R$ <%= number_with_precision(@total, precision: 2)%></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Descontos
+              <span>- R$ <%= number_with_precision(0, precision: 2)%></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Total
+              <span>R$ <%= number_with_precision(@total, precision: 2)%></span>
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="text-right">
+          <%= link_to "Proceed to Checkout", checkout_cart_path(@cart), method: :patch, class:"btn text-right", style:"background-color:#3D8116; color:white;" %>
+        </div>
+
+      </div>
+
+    </div>
+
+  <% else %>
+
+    <div class="container" style="height: 100vh; padding-top: 15%;">
+      <h2 class="text-center " style="font-size: 50px;font-weight:bold; color:white;">Select something to buy and comeback to checkout!</h2>
+      <div class="text-center" style="font-size: 50px;font-weight:bold; color:white;">
+        <i class="far fa-smile-wink"></i>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
