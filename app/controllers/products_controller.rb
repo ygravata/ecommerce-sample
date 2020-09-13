@@ -23,6 +23,21 @@ class ProductsController < ApplicationController
     @products = Product.all.order(created_at: :desc)
   end
 
+  def new
+    @product = Product.new
+    # authorize @product
+  end
+
+  def create
+    @product = Product.new(product_params)
+    @product.user = current_user
+    # authorize @product
+    if @product.save
+      redirect_to list_products_path, notice: 'Product created!'
+    else
+      render :new
+    end
+  end
   def edit
     # authorize @product
   end
@@ -90,8 +105,8 @@ class ProductsController < ApplicationController
   def add_products(products)
     products.each do |product|
       new_product = Product.new(
-        name: product['name'].capitalize, brand: product['brand'].capitalize,
-        category: product['category'].capitalize,image_url: product['image_url'],
+        name: product['name'].titleize, brand: product['brand'].titleize,
+        category: product['category'].titleize,image_url: product['image_url'],
         for: product['for'], desc1: product['desc1'],
         desc2: product['desc2'], text: product['text']
         )

@@ -12,11 +12,17 @@ Rails.application.routes.draw do
       patch 'add_to_cart'
     end
   end
-  resources :carts, only: [:index, :update, :show, :destroy] do
-    resources :cart_products, only: [:udpate, :destroy]
+  resources :carts, only: [:index, :update, :destroy] do
+    resources :cart_products, only: [:udpate]
     member do
       get 'checkout'
       patch 'checkout'
+    end
+  end
+  resources :cart_products, only: [:update, :destroy] do
+    member do
+      patch 'add_unit'
+      patch 'reduce_unit'
     end
   end
 end

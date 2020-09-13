@@ -1,5 +1,6 @@
 class CartProductsController < ApplicationController
   before_action :set_cart, only:[:create]
+  before_action :set_cart_product, only:[:destroy, :add_unit, :reduce_unit]
 
 
   def create
@@ -24,10 +25,21 @@ class CartProductsController < ApplicationController
     end
   end
 
+  def add_unit
+    @cart_product.quantity +=1
+    @cart_product.save
+    redirect_to carts_path
+  end
+
+  def reduce_unit
+    @cart_product.quantity -= 1
+    @cart_product.save
+    redirect_to carts_path
+  end
 
   def destroy
     @cart_product = CartProduct.find(params[:id])
-    authorize @cart_product
+    # authorize @cart_product
     @cart_product.destroy
     redirect_to carts_path, notice: 'Product removed from cart'
   end
@@ -42,6 +54,12 @@ class CartProductsController < ApplicationController
   def set_cart
     if !current_user.nil?
       @cart = current_user.carts.find_by_status("Active")
+    end
+  end
+
+  def set_cart_product
+    if !current_user.nil?
+      @cart_product = CartProduct.find(params[:id])
     end
   end
 

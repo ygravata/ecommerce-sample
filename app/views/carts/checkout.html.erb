@@ -1,4 +1,4 @@
-<div style="height:100vh;">
+<div class="container" style="height:100vh;">
 
   <h2 class="text-center pt-3 " style="font-size: 50px;font-weight:bold; color:white;">Thank you for choosing us!</h2>
   <p style="font-size: 20px;font-weight:bold; color:white;">Your order request:</p>
@@ -30,14 +30,33 @@
       </div>
 
     <% end %>
+      <div class="col-6">
 
-    <div class="col-6">
+        <div class="card-total">
+          <h2 class="card-total-title">Receipt</h2>
 
-      <div class="card-product justify-content-around">
-        <h2 class="card-checkout-total">Total</h2>
-        <h2 class="card-checkout-total">R$ <%= number_with_precision(@total, precision: 2) %></h2>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Subtotal
+              <span>R$ <%= number_with_precision(@total, precision: 2)%></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Descontos
+              <span>- R$ <%= number_with_precision(0, precision: 2)%></span>
+            </li>
+            <div style="font-weight: bold; font-size: 18px;">
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Total
+              <span>R$ <%= number_with_precision(@total, precision: 2)%></span>
+            </li>
+            </div>
+          </ul>
+
+        </div>
+
+
+
       </div>
-
-    </div>
   </div>
 </div>
