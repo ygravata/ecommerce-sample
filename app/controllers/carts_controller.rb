@@ -1,10 +1,10 @@
 class CartsController < ApplicationController
-  before_action :cart_find, oly:[:index, :checkout]
-  before_action :cart_items_count
+  before_action :set_cart, only:[:index, :checkout, :destroy]
+  before_action :cart_items_count, only:[:index]
 
   def index
     @cart = current_user.carts.find_by_status("Active")
-    cart_total
+    cart_total_amount
   end
 
   def checkout
@@ -13,12 +13,19 @@ class CartsController < ApplicationController
       @cart.save!
     end
     @inactive_cart = Cart.find(params[:id])
-    cart_total
+    cart_total_amount
+  end
+
+  def destroy
+    # authorize @cart
+    @cart.cart_products.destroy_all
+    @cart.destroy
+    redirect_to carts_path, notice: 'Cart empty'
   end
 
   private
 
-  def cart_total
+  def cart_total_amount
     @total = 0
     if @cart
        @cart.cart_products.each do |cart_product|
@@ -31,7 +38,7 @@ class CartsController < ApplicationController
     end
   end
 
-  def cart_find
+  def set_cart
     if !current_user.nil?
       @cart = current_user.carts.find_by_status("Active")
     end
@@ -40,7 +47,7 @@ class CartsController < ApplicationController
   def cart_items_count
     @cart_items_count = 0
 
-    unless @cart.nil?
+    unless @cart.nil? || @cart.status == "Inactive"
       @cart.cart_products.each do |cart_product|
         @cart_items_count += cart_product.quantity
       end

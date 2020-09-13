@@ -1,8 +1,11 @@
+<div class="container">
 
 <div class="gravata-container">
 
     <h2 class="heading-title mt-2">Products Management</h2>
     <p style="font-size: 18px;">Include bellow a YAML file to add a set of new products, or click the button "New Product" to add a new one.</p>
+    <p class="mb-0"style="font-size: 18px;">Note! Only products that have a price will be displayed to the consumer.</p>
+    <p style="font-size: 18px;">(If a product don't have a price, you need to set it.)</p>
 
   <div class="input-file">
     <%= form_for :upload, :url => {:action=>:upload}, :html=>{:multipart=>true} do |f| %>
@@ -54,3 +57,5 @@
 </div>
 
 
+
+</div>

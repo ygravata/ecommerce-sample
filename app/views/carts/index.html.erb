@@ -48,9 +48,18 @@
 
         </div>
 
-        <div class="text-right">
-          <%= link_to "Proceed to Checkout", checkout_cart_path(@cart), method: :patch, class:"btn text-right", style:"background-color:#3D8116; color:white;" %>
+        <div class="d-flex justify-content-between">
+          <%= link_to cart_path(@cart),class:"btn text-left",style:"background-color:#d33c21; color:white;", method: :delete, data: { confirm: 'Are you sure?'} do %>
+            Empty Cart
+          <% end %>
+
+
+          <div class="text-right">
+            <%= link_to "Proceed to Checkout", checkout_cart_path(@cart), method: :patch, class:"btn text-right", style:"background-color:#3D8116; color:white;" %>
+          </div>
+
         </div>
+
 
       </div>
 

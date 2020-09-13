@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       patch 'add_to_cart'
     end
   end
-  resources :carts, only: [:index, :update, :show] do
+  resources :carts, only: [:index, :update, :show, :destroy] do
     resources :cart_products, only: [:udpate, :destroy]
     member do
       get 'checkout'

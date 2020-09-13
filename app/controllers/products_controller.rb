@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :cart_find
-  before_action :cart_items_count
+  before_action :cart_items_count, only:[:index, :show]
 
   def index
     @products = Product.all.order(created_at: :desc)

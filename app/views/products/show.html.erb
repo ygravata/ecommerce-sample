@@ -7,26 +7,38 @@
               onerror: 'this.error=null;this.src="https://i.pinimg.com/originals/b2/a1/81/b2a1819f5aae2d868b410e1aff64bf29.jpg"', style: "border-radius: 8px;" %>
     </div>
 
-    <div class="ml-5" style="padding-left: 5%; padding-top: 10%; width: 60%;">
-      <h2><%= @product.name %></h2>
-      <p>Brand: <%= @product.brand %></p>
-      <p>Category: <%= @product.category %></p>
-      <p>Suited for: <%= @product.for %>.</p>
-      <p><%= @product.desc1 %></p>
-      <p>R$ <%= number_with_precision(@product.price, precision: 2) %></p>
+    <div class="ml-5" style="padding-left: 1%; padding-top: 10%; width: 60%;">
+      <div style="border: solid; padding: 30px; color: white;">
+        <h2 style="font-weight:bold;"><%= @product.name %></h2>
+        <p style="font-size: 32px;font-weight:bold;">R$ <%= number_with_precision(@product.price, precision: 2) %></p>
+        <p><span style="font-weight:bold;">Brand:</span> <%= @product.brand %></p>
+        <p><span style="font-weight:bold;">Category:</span> <%= @product.category %></p>
+        <p><span style="font-weight:bold;">Suited for:</span> <%= @product.for %>.</p>
+        <p><%= @product.desc1 %></p>
 
-          <%= link_to add_to_cart_product_path(@product),method: :patch, class:"btn", style:"color:white; background-color:#72B8DB;" do %>
+        <div class="text-center">
+          <%= link_to add_to_cart_product_path(@product),method: :patch, class:"btn", style:"color:#72B8DB; background-color:white; font-size:18px;" do %>
             Add to cart <i class="fas fa-cart-plus"></i>
           <% end %>
-
-
+        </div>
+      </div>
+<!--
+        <%= simple_form_for [@product, @cart_product],
+          wrapper: :inline_form,
+          html: { class: "form-inline" },
+          wrapper_mappings: {
+            boolean: :inline_boolean
+          } do |f| %>
+          <%= f.input :quantity, :collection => (1..10) %>
+          <%= f.button :submit, "Add to the cart", class: "btn new-product-button mb-2" %>
+        <% end %> -->
 
     </div>
   </div>
 
 </div>
 
-<div class="" style="padding-bottom: 5%; padding-left: 5%; padding-top: 10%; width: 86%;">
+<div class="" style="color:white;padding-bottom: 5%; padding-left: 5%; padding-top: 10%; width: 86%;">
   <h2>Complete description:</h2>
 
   <p><%= @product.desc2 %></p>
