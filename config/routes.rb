@@ -18,7 +18,11 @@ Rails.application.routes.draw do
       get 'checkout'
       patch 'checkout'
     end
-    resources :coupons
+    member do
+      get 'check_coupon'
+      patch 'check_coupon'
+    end
+    # resources :orders
   end
   resources :cart_products, only: [:update, :destroy] do
     member do
@@ -26,4 +30,5 @@ Rails.application.routes.draw do
       patch 'reduce_unit'
     end
   end
+  resources :coupons, only: [:index, :create, :edit, :update, :destroy]
 end
