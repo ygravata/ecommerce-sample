@@ -1,0 +1,64 @@
+<div class="container">
+
+<div class="gravata-container">
+
+    <h2 class="heading-title mt-2">Coupons Management</h2>
+<!--     <p style="font-size: 18px;">Include bellow a YAML file to add a set of new products, or click the button "New Product" to add a new one.</p>
+    <p class="mb-0"style="font-size: 18px;">Note! Only products that have a price will be displayed to the consumer.</p>
+    <p style="font-size: 18px;">(If a product don't have a price, you need to set it.)</p>
+ -->
+
+  <div class="text-left ml-2 mb-2">
+    <%= link_to coupons_path(@coupon),method: :post, class:"btn", style:"background-color:#263241; color:white;" do %>
+      Generate Coupon
+    <% end %>
+  </div>
+
+  <table class="table table-dark table-style">
+    <thead>
+      <tr>
+        <th scope="col">Item Nº</th>
+        <th scope="col">Date of input</th>
+        <th scope="col">Coupon code</th>
+        <th scope="col">Status</th>
+        <th scope="col">Discount</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @coupons.each do |coupon| %>
+          <tr>
+            <td><%= coupon.id %></td>
+            <th scope="row"><%= coupon.created_at.strftime("%d/%m") %></th>
+            <td ><%= coupon.coupon_code %></td>
+            <td>
+              <% if coupon.active %>
+                Active
+              <% else %>
+                Used
+              <% end %>
+            </td>
+            <td><%= coupon.discount %>%</td>
+
+            <td>
+              <%= link_to edit_coupon_path(coupon) do %>
+                <i class="far fa-edit pt-1" style="font-size: 18px; color:white;"></i>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to coupon_path(coupon), method: :delete, data: { confirm: 'Are you sure?'} do %>
+                <i class="fas fa-trash-alt pt-1" style="font-size: 18px; color:white;"></i>
+              <% end %>
+
+            </td>
+
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+
+</div>

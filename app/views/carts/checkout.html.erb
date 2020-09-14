@@ -41,14 +41,14 @@
               <span>R$ <%= number_with_precision(@total, precision: 2)%></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              Descontos
-              <span>- R$ <%= number_with_precision(0, precision: 2)%></span>
+              Discounts
+              <span>- R$ <%= number_with_precision(@cart.discount, precision: 2)%></span>
             </li>
             <div style="font-weight: bold; font-size: 18px;">
 
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Total
-              <span>R$ <%= number_with_precision(@total, precision: 2)%></span>
+              <span>R$ <%= number_with_precision(@total-@cart.discount, precision: 2)%></span>
             </li>
             </div>
           </ul>

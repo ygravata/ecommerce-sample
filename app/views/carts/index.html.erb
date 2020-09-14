@@ -66,14 +66,29 @@
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Descontos
-              <span>- R$ <%= number_with_precision(0, precision: 2)%></span>
+              <span>- R$
+              <% unless @cart.discount.nil? %>
+                <%= number_with_precision(@cart.discount, precision: 2)%>
+              <% else %>
+                <%= number_with_precision(0, precision: 2)%>
+              <% end %>
+
+                </span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Total
-              <span>R$ <%= number_with_precision(@total, precision: 2)%></span>
+              <span>R$ <%= number_with_precision(@total-@cart.discount, precision: 2)%></span>
+            </li>
+            <li>
+              <%= form_tag check_coupon_cart_path(@cart), method: :get do %>
+              <div class="d-flex p-2 justify-content-between">
+
+                <%= text_field_tag :coupon, params[:coupon], class: "form-control form-rounded", style: "width:75%;", placeholder: "Type your discount code!", :maxlength => 9 %>
+                <%= submit_tag "Get discount", class: "btn form-rounded", style: "background-color: #78C3EB; color: white;"%>
+              </div>
+              <% end %>
             </li>
           </ul>
-
         </div>
 
         <div class="d-flex justify-content-between">
@@ -83,7 +98,7 @@
 
 
           <div class="text-right">
-            <%= link_to "Proceed to Checkout", checkout_cart_path(@cart), method: :patch, class:"btn text-right", style:"background-color:#3D8116; color:white;" %>
+            <%= link_to "Proceed to Checkout", checkout_cart_path(@cart), method: :patch, data: { confirm: 'Take the time to look through your products one last time before sending your order!'}, class:"btn text-right", style:"background-color:#3D8116; color:white;" %>
           </div>
 
         </div>
