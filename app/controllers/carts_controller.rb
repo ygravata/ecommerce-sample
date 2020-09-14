@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only:[:index, :checkout, :check_coupon, :destroy]
+  before_action :set_cart, only:[:index, :checkout, :check_coupon, :destroy, :set_checkout_coupon]
   before_action :set_coupon, only:[:check_coupon]
   before_action :set_checkout_coupon, only:[:checkout]
   before_action :cart_items_count, only:[:index]
@@ -13,11 +13,17 @@ class CartsController < ApplicationController
     unless @cart.nil?
       @cart.status = 'Inactive'
       @cart.save!
-      @coupon.active = false
-      @coupon.save!
+      @order = Order.create!(cart: @cart, user: current_user)
+      if @coupon
+        @coupon.active = false
+        @coupon.save!
+        @order.coupon = @coupon
+        @order.save!
+      end
+    else
+      @inactive_cart = Cart.find(params[:id])
+      cart_total_amount
     end
-    @inactive_cart = Cart.find(params[:id])
-    cart_total_amount
   end
 
   def destroy
@@ -55,8 +61,7 @@ class CartsController < ApplicationController
 
   def set_checkout_coupon
     if !current_user.nil?
-      @cart = current_user.carts.find_by_status("Active")
-      unless @cart.coupon_id.nil?
+      unless @cart.nil? || @cart.coupon_id.nil?
         @coupon =  Coupon.find_by(id: @cart.coupon_id)
       end
     end

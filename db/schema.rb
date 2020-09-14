@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_14_213144) do
+ActiveRecord::Schema.define(version: 2020_09_14_215802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,11 +46,9 @@ ActiveRecord::Schema.define(version: 2020_09_14_213144) do
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "cart_id", null: false
-    t.bigint "coupon_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cart_id"], name: "index_orders_on_cart_id"
-    t.index ["coupon_id"], name: "index_orders_on_coupon_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -89,7 +87,6 @@ ActiveRecord::Schema.define(version: 2020_09_14_213144) do
   add_foreign_key "cart_products", "products"
   add_foreign_key "carts", "users"
   add_foreign_key "orders", "carts"
-  add_foreign_key "orders", "coupons"
   add_foreign_key "orders", "users"
   add_foreign_key "products", "users"
 end
