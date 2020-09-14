@@ -1,14 +1,18 @@
 class Product < ApplicationRecord
-  before_save :capitalize_name
+  before_save :titleize_name_and_category
 
   belongs_to :user
   has_many :cart_products
+  # has_one_attached :photo
 
   validates :name, presence: true
   validates :category, presence: true
-  # validates :description, presence: true, length: { maximum: 250 , message:  "Maximum of 250 characters" }
-  # validates :price, presence: true
+  validates :desc1, presence: true
+  validates :desc2, presence: true
+  validates :price, presence: true
+
   # validates :quantity, presence: true
+
 
   private
 
@@ -23,8 +27,10 @@ class Product < ApplicationRecord
   def self.brands
     Product.pluck(:brand).uniq
   end
-  def capitalize_name
+
+  def titleize_name_and_category
     self.name = self.name.titleize
+    self.category = self.category.titleize
   end
 
   include PgSearch::Model
