@@ -2,6 +2,11 @@
 @import "home";
 @import "devise";
 
+body{
+  height:100%;
+  width:100%;
+}
+
 .input-file {
   width: 500px;
   text-align: left;

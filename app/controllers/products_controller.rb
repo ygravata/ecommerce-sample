@@ -5,7 +5,11 @@ class ProductsController < ApplicationController
   before_action :cart_items_count, only:[:index, :show]
 
   def index
-    @products = Product.all.order(created_at: :desc)
+    if params[:query].present?
+      @products = Product.global_search(params[:query]).order(created_at: :desc)
+    else
+      @products = Product.all.order(created_at: :desc)
+    end
   end
 
   def show
