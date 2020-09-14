@@ -10,7 +10,15 @@ class Product < ApplicationRecord
   # validates :price, presence: true
   # validates :quantity, presence: true
 
+  private
 
+  def self.categories
+    Product.pluck(:category).uniq
+  end
+
+  def self.brands
+    Product.pluck(:brand).uniq
+  end
   def capitalize_name
     self.name = self.name.titleize
   end
