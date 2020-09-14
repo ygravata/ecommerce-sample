@@ -112,7 +112,7 @@ class ProductsController < ApplicationController
         name: product['name'].titleize, brand: product['brand'].titleize,
         category: product['category'].titleize,image_url: product['image_url'],
         for: product['for'], desc1: product['desc1'],
-        desc2: product['desc2'], text: product['text']
+        desc2: product['desc2'], text: product['text'], price: product['price']
         )
 
       unless product['specs'].nil?
