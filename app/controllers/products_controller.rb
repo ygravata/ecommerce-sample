@@ -6,9 +6,9 @@ class ProductsController < ApplicationController
 
   def index
     if params[:query].present?
-      @products = Product.global_search(params[:query]).order(created_at: :desc)
+      @products = Product.active_products.global_search(params[:query]).order(created_at: :desc)
     else
-      @products = Product.all.order(created_at: :desc)
+      @products = Product.active_products.all.order(created_at: :desc)
     end
   end
 
@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
   end
 
   def list
-    @products = Product.all.order(created_at: :desc)
+    @products = Product.active_products.all.order(created_at: :desc)
   end
 
   def new
@@ -52,7 +52,8 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product.destroy
+    @product.active = false
+    @product.save!
     redirect_to list_products_path
   end
 
@@ -112,7 +113,7 @@ class ProductsController < ApplicationController
         name: product['name'].titleize, brand: product['brand'].titleize,
         category: product['category'].titleize,image_url: product['image_url'],
         for: product['for'], desc1: product['desc1'],
-        desc2: product['desc2'], text: product['text'], price: product['price']
+        desc2: product['desc2'], price: product['price']
         )
 
       unless product['specs'].nil?

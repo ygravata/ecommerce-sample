@@ -12,6 +12,10 @@ class Product < ApplicationRecord
 
   private
 
+  def self.active_products
+    Product.where(active: true)
+  end
+
   def self.categories
     Product.pluck(:category).uniq
   end
@@ -25,7 +29,7 @@ class Product < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :global_search,
-    against: [ :name, :brand, :category, :desc2 ],
+    against: [ :name, :brand, :category, :desc2, :price ],
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get 'checkout'
       patch 'checkout'
     end
+    resources :coupons
   end
   resources :cart_products, only: [:update, :destroy] do
     member do

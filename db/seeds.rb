@@ -36,7 +36,8 @@ puts "Creating products"
       <p>O Carrinho Trend Safety 1st possui 3 posições do encosto sendo a primeira sentado, a segunda levemente reclinado e a terceira deitado. O assento pode ser revertido, de frente para os pais ou virado para o mundo, e pode ser removido para armazenar ou encaixar o bebê conforto (vendido separadamente com base veicular).</p>
       <p>Fechamento exclusivo na categoria Travel System tipo guarda-chuva, compacto e leve. Possui 4 rodas duplas com trava de direcionamento nas rodas dianteiras e freios interligados nas rodas traseiras, manopla dupla acolchoada, amplo cesto de compras para até 4,5kg com zíper lateral que facilita o acesso.</p>
       <p>Capota retrátil e extensível com para-sol e visor para os pais, cinto de 5 pontos com protetor de ombro acolchoado, 3 alturas para cinto e apoio para os pés emborrachado. Tecido fácil de limpar. Para proceder com o fechamento correto do carrinho, o assento deve estar revertido contrário a visão de quem guia.</p>
-    "
+    ",
+    price: rand(500...1000)
   )
 
   product.save!
