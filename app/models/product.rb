@@ -17,7 +17,7 @@ class Product < ApplicationRecord
   private
 
   def self.active_products
-    Product.where(active: true)
+    Product.all
   end
 
   def self.categories

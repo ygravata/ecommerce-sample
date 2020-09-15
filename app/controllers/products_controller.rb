@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
     if params[:query].present?
       @products = Product.active_products.global_search(params[:query]).order(created_at: :desc)
     else
-      @products = Product.active_products.all.order(created_at: :desc)
+      @products = Product.active_products.order(created_at: :desc)
     end
   end
 
