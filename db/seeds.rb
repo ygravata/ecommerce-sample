@@ -17,15 +17,15 @@ User.destroy_all
 
 puts 'Creating user'
 
-user = User.create!(name:"Yuri", last_name: "Gravatá", birthdate: '24/11/1992', email: 'ygravata@gmail.com', password: 'testtest', admin: true)
+user = User.create!(first_name:"Yuri", last_name: "Gravatá", birthdate: '24/11/1992', email: 'ygravata@gmail.com', password: 'testtest', admin: true)
 
 puts "User #{user.email} created."
 
 puts 'Creating user'
 
-user2= User.create!(name:"Pedro", last_name: "Pazello", birthdate: '24/11/1992', email: 'pedro.pazello@dorel.com.br', password: 'testtest', admin: true)
+user2= User.create!(first_name:"Pedro", last_name: "Pazello", birthdate: '24/11/1992', email: 'pedro.pazello@dorel.com.br', password: 'testtest', admin: true)
 
-puts "User #{user2.email} created."
+puts "User #{user.email} created."
 
 puts "Creating products"
 

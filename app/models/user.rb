@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :products
   has_many :carts
 
-  validates :name, presence: true
+  validates :first_name, presence: true
   validates :last_name, presence: true
   validates :birthdate, presence: true
 

@@ -20,7 +20,7 @@
 
       <div class="card-body">
         <h5 class="card-title">Order Nº <%= @order.id %></h5>
-        <h6 class="card-subtitle mb-2 text-muted">Client: <%= @order.user.name %> <%= @order.user.last_name %></h6>
+        <h6 class="card-subtitle mb-2 text-muted">Client: <%= @order.user.first_name %> <%= @order.user.last_name %></h6>
         <h6 class="card-subtitle mb-2 text-muted">Email: <%= @order.user.email %></h6>
         <h6 class="card-subtitle mb-2 text-muted">Date: <%= @order.created_at.strftime("%d/%m/%y") %></h6>
       </div>

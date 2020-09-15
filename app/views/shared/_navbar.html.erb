@@ -19,7 +19,7 @@
           <i class="fas fa-user-circle avatar dropdown"  id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#78C3EB; font-size: 38px;"></i>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <p class="dropdown-item">Hello, <%= current_user.name.capitalize %>!</p>
+            <p class="dropdown-item">Hello, <%= current_user.first_name.capitalize %>!</p>
               <%= link_to "My orders", my_orders_orders_path, class: "dropdown-item" %>
             <%= link_to "Edit my info", edit_user_registration_path, class: "dropdown-item" %>
             <!--            <%= link_to "Another action", "#", class: "dropdown-item" %> -->
