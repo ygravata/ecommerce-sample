@@ -14,12 +14,10 @@ class ProductsController < ApplicationController
 
   def show
     @cart_product = CartProduct.new
-    # @review = Review.new
   end
 
   def new
     @product = Product.new
-    # authorize @product
   end
 
   def create
@@ -34,7 +32,6 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    # authorize @product
   end
 
   def update
@@ -79,7 +76,6 @@ class ProductsController < ApplicationController
       @cart_product.product = Product.find(params[:id])
     end
 
-    # authorize @cart_product
     if @cart_product.save
         redirect_to products_path, notice: 'Product added to cart!'
     end
@@ -94,7 +90,6 @@ class ProductsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:id])
-    # authorize @product
   end
 
   def set_cart
@@ -123,6 +118,4 @@ class ProductsController < ApplicationController
       new_product.save!
     end
   end
-
-
 end

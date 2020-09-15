@@ -1,5 +1,5 @@
 class Coupon < ApplicationRecord
-require 'securerandom'
+  require 'securerandom'
 
   validates :coupon_code, presence: true
   validates_uniqueness_of :coupon_code
@@ -22,7 +22,5 @@ require 'securerandom'
     # e.g. "6AUF-7D4D-6P4A"
 
     Coupon.create!(coupon_code: @short_code, discount: 5)
-
   end
-
 end

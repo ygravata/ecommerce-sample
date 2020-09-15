@@ -4,7 +4,6 @@ class CartsController < ApplicationController
   before_action :set_checkout_coupon, only:[:checkout]
   before_action :cart_items_count
 
-
   def index
     unless current_user.nil?
       @cart = current_user.carts.find_by_status("Active")
@@ -24,13 +23,11 @@ class CartsController < ApplicationController
       cart_total_amount
     else
       @inactive_cart = Cart.find(params[:id])
-      # raise
       cart_total_amount
     end
   end
 
   def destroy
-    # authorize @cart
     @cart.cart_products.destroy_all
     @cart.destroy
     redirect_to carts_path, notice: 'Cart empty'
@@ -47,7 +44,6 @@ class CartsController < ApplicationController
     else
       redirect_to carts_path, notice: "Coupon not valid."
     end
-
   end
 
   private
@@ -67,16 +63,15 @@ class CartsController < ApplicationController
   def cart_total_amount
     @total = 0
     if @cart
-       @cart.cart_products.each do |cart_product|
-          @total += cart_product.product.price * cart_product.quantity
-        end
-        @total
+      @cart.cart_products.each do |cart_product|
+        @total += cart_product.product.price * cart_product.quantity
+      end
+      @total
     elsif @inactive_cart
-       @inactive_cart.cart_products.each do |cart_product|
-          @total += cart_product.product.price * cart_product.quantity
-        end
-        @total
+      @inactive_cart.cart_products.each do |cart_product|
+        @total += cart_product.product.price * cart_product.quantity
+      end
+      @total
     end
   end
-
 end

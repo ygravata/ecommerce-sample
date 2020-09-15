@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
   end
 
   def my_orders
+    # 'index order' of  one user
     @orders = Order.where(user_id: current_user.id)
   end
 

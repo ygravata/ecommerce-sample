@@ -2,8 +2,9 @@ class Cart < ApplicationRecord
   belongs_to :user
   has_many :cart_products
   has_one :order
-  #validates only one active
+
   validates :status, presence: true, inclusion: { in: %w(Active Inactive) }
+  #validates only one cart active
 
   attr_accessor :total_amount
 

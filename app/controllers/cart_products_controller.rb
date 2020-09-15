@@ -4,6 +4,7 @@ class CartProductsController < ApplicationController
 
 
   def create
+    # action called at product show and product index
     unless @cart
       @cart = Cart.new(status: "Active", user: current_user)
       @cart.save
@@ -18,10 +19,8 @@ class CartProductsController < ApplicationController
       @cart_product.product = Product.find(params[:product_id])
     end
 
-    # authorize @cart_product
-
     if @cart_product.save
-        redirect_to products_path, notice: 'Product added to cart!'
+      redirect_to products_path, notice: 'Product added to cart!'
     end
   end
 
@@ -41,11 +40,9 @@ class CartProductsController < ApplicationController
 
   def destroy
     @cart_product = CartProduct.find(params[:id])
-    # authorize @cart_product
     @cart_product.destroy
     redirect_to carts_path, notice: 'Product removed from cart'
   end
-
 
   private
 
@@ -58,5 +55,4 @@ class CartProductsController < ApplicationController
       @cart_product = CartProduct.find(params[:id])
     end
   end
-
 end

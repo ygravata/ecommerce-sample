@@ -2,9 +2,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_cart
   before_action :cart_items_count
-
-
   before_action :configure_permitted_parameters, if: :devise_controller?
+
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :birthdate])
@@ -13,6 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_cart
+    # set to be inherited as this method was redundant in a bunch of controllers
     unless current_user.nil?
       @cart = current_user.carts.find_by_status("Active")
     end

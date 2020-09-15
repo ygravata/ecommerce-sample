@@ -9,5 +9,4 @@ class Order < ApplicationRecord
   def order_products(order)
     order.cart.cart_products
   end
-
 end

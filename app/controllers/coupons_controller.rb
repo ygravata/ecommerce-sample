@@ -12,7 +12,6 @@ class CouponsController < ApplicationController
 
   def edit
     @coupon = Coupon.find(params[:id])
-    # authorize @coupon
   end
 
   def update
@@ -21,7 +20,6 @@ class CouponsController < ApplicationController
     redirect_to coupons_path
   end
 
-
   def delete
   end
 
@@ -29,11 +27,9 @@ class CouponsController < ApplicationController
 
   def set_coupon
     @coupon = Coupon.find(params[:id])
-    # authorize @product
   end
 
   def coupon_params
     params.require(:coupon).permit(:discount)
   end
-
 end
