@@ -2,7 +2,7 @@ class CartsController < ApplicationController
   before_action :set_cart, only:[:index, :checkout, :check_coupon, :destroy, :set_checkout_coupon]
   before_action :set_coupon, only:[:check_coupon]
   before_action :set_checkout_coupon, only:[:checkout]
-  before_action :cart_items_count
+  before_action :cart_items_count, except: [:checkout]
 
   def index
     unless current_user.nil?
