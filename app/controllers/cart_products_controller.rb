@@ -26,12 +26,14 @@ class CartProductsController < ApplicationController
   end
 
   def add_unit
+    # add unit to cart_product
     @cart_product.quantity +=1
     @cart_product.save
     redirect_to carts_path
   end
 
   def reduce_unit
+    # reduce unit to cart_product
     @cart_product.quantity -= 1
     @cart_product.save
     redirect_to carts_path
@@ -49,12 +51,6 @@ class CartProductsController < ApplicationController
 
   def cart_product_params
     params.require(:cart_product).permit(:quantity)
-  end
-
-  def set_cart
-    if !current_user.nil?
-      @cart = current_user.carts.find_by_status("Active")
-    end
   end
 
   def set_cart_product

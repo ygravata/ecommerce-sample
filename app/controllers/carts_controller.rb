@@ -49,12 +49,6 @@ class CartsController < ApplicationController
 
   private
 
-  def set_cart
-    if !current_user.nil?
-      @cart = current_user.carts.find_by_status("Active")
-    end
-  end
-
   def set_coupon
     @coupon =  Coupon.find_by(coupon_code: params['coupon'])
   end

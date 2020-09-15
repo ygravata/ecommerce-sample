@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def cart_items_count
+    # count cart products quantity, to display on cart icon of navbar
     @cart_items_count = 0
 
     unless @cart.nil?
