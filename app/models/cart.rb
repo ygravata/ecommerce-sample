@@ -14,4 +14,12 @@ class Cart < ApplicationRecord
     end
     @total
   end
+
+  def total_quantity(cart_products_array)
+    @total = 0
+    cart_products_array.each do |cart_product|
+      @total += cart_product.quantity
+    end
+    @total
+  end
 end

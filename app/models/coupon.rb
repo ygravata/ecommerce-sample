@@ -5,6 +5,7 @@ require 'securerandom'
   validates_uniqueness_of :coupon_code
   validates :discount, presence: true
 
+  private
 
   def self.generate_coupon
     # Random, unguessable number as a base20 string

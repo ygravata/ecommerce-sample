@@ -30,5 +30,9 @@ Rails.application.routes.draw do
     end
   end
   resources :coupons, only: [:index, :create, :edit, :update, :destroy]
-  resources :orders
+  resources :orders do
+    collection do
+      get 'my_orders'
+    end
+  end
 end

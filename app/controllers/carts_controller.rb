@@ -2,6 +2,8 @@ class CartsController < ApplicationController
   before_action :set_cart, only:[:index, :checkout, :check_coupon, :destroy, :set_checkout_coupon]
   before_action :set_coupon, only:[:check_coupon]
   before_action :set_checkout_coupon, only:[:checkout]
+  before_action :cart_items_count
+
 
   def index
     unless current_user.nil?
@@ -22,6 +24,7 @@ class CartsController < ApplicationController
       cart_total_amount
     else
       @inactive_cart = Cart.find(params[:id])
+      # raise
       cart_total_amount
     end
   end
@@ -34,7 +37,7 @@ class CartsController < ApplicationController
   end
 
   def check_coupon
-    if @coupon
+    if @coupon.active == true
       @coupon_discount = @coupon.discount
       @discount_calculation = (@coupon_discount.to_f/100)*cart_total_amount
       @cart.discount = @discount_calculation
