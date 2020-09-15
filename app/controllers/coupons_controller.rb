@@ -2,7 +2,6 @@ class CouponsController < ApplicationController
   before_action :set_coupon, only: [ :edit, :update, :destroy]
 
   def index
-    # @coupon = Coupon.new
     @coupons = Coupon.all.order(active: :desc)
   end
 

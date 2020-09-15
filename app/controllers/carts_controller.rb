@@ -2,7 +2,6 @@ class CartsController < ApplicationController
   before_action :set_cart, only:[:index, :checkout, :check_coupon, :destroy, :set_checkout_coupon]
   before_action :set_coupon, only:[:check_coupon]
   before_action :set_checkout_coupon, only:[:checkout]
-  before_action :cart_items_count, only:[:index]
 
   def index
     unless current_user.nil?
@@ -80,17 +79,6 @@ class CartsController < ApplicationController
           @total += cart_product.product.price * cart_product.quantity
         end
         @total
-    end
-  end
-
-
-  def cart_items_count
-    @cart_items_count = 0
-
-    unless @cart.nil? || @cart.status == "Inactive"
-      @cart.cart_products.each do |cart_product|
-        @cart_items_count += cart_product.quantity
-      end
     end
   end
 

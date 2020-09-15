@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :set_cart
-  before_action :cart_items_count, only:[:index, :show]
+  before_action :cart_items_count
 
   def index
     if params[:query].present?
@@ -15,18 +15,6 @@ class ProductsController < ApplicationController
   def show
     @cart_product = CartProduct.new
     # @review = Review.new
-  end
-
-  def upload
-    # action to upload yaml file with new products into the db
-    @result = YAML.load_file(params[:upload][:file])
-    add_products(@result)
-    redirect_to(list_products_path)
-  end
-
-  def list
-    # admin products management view
-    @products = Product.active_products.all.order(created_at: :desc)
   end
 
   def new
@@ -54,6 +42,18 @@ class ProductsController < ApplicationController
     redirect_to list_products_path
   end
 
+  def list
+    # admin products management view
+    @products = Product.active_products.all.order(created_at: :desc)
+  end
+
+  def upload
+    # action to upload yaml file with new products into the db
+    @result = YAML.load_file(params[:upload][:file])
+    yaml_add_products(@result)
+    redirect_to(list_products_path)
+  end
+
   def destroy
     # the destroy method won't really destroy,
     # will only set the product as active=false (so we keep the product relations, as orders or carts)
@@ -63,7 +63,8 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-    #will add the products to the cart, grouping them by id (so we don't have duplicates in the checkout)
+    # action to be called in the show and index (product)
+    #will add the products to the cart, grouping them by id (so we don't have duplicates in listing in the checkout)
     unless @cart
       @cart = Cart.new(status: "Active", user: current_user)
       @cart.save
@@ -102,18 +103,9 @@ class ProductsController < ApplicationController
     end
   end
 
-  def cart_items_count
-    @cart_items_count = 0
-
-    unless @cart.nil?
-      @cart.cart_products.each do |cart_product|
-        @cart_items_count += cart_product.quantity
-      end
-    end
-  end
-
-  def add_products(products)
-    products.each do |product|
+  def yaml_add_products(yaml_raw_file)
+    # method to transform data of yaml file into new products
+    yaml_raw_file.each do |product|
       new_product = Product.new(
         name: product['name'].titleize, brand: product['brand'].titleize,
         category: product['category'].titleize,image_url: product['image_url'],
