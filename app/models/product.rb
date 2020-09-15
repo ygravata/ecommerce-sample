@@ -3,16 +3,11 @@ class Product < ApplicationRecord
 
   belongs_to :user
   has_many :cart_products
-  # has_one_attached :photo
 
   validates :name, presence: true
   validates :category, presence: true
   validates :desc1, presence: true
   validates :desc2, presence: true
-  validates :price, presence: true
-
-  # validates :quantity, presence: true
-
 
   private
 
@@ -39,5 +34,4 @@ class Product < ApplicationRecord
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
-
 end
