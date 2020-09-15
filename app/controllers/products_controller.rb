@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :set_cart
-  before_action :cart_items_count
+  before_action :cart_items_count, except: [:checkout]
 
   def index
     if params[:query].present?
