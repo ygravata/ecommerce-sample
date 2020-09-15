@@ -17,9 +17,8 @@ class CartsController < ApplicationController
       if @coupon
         @coupon.active = false
         @coupon.save!
-        @order.coupon = @coupon
-        @order.save!
       end
+      cart_total_amount
     else
       @inactive_cart = Cart.find(params[:id])
       cart_total_amount
@@ -73,12 +72,13 @@ class CartsController < ApplicationController
        @cart.cart_products.each do |cart_product|
           @total += cart_product.product.price * cart_product.quantity
         end
+        @total
     elsif @inactive_cart
        @inactive_cart.cart_products.each do |cart_product|
           @total += cart_product.product.price * cart_product.quantity
         end
+        @total
     end
-    @total
   end
 
 

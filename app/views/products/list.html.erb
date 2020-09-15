@@ -42,7 +42,7 @@
             <% if product.price.nil? %>
               <td style="background-color:red;"> Set a price! </td>
             <% else %>
-              <td>R$ <%= number_with_precision(product.price, precision: 2) %> </td>
+              <td>R$ <%= number_with_precision(product.price, precision: 2, separator: ',', delimiter: '.') %> </td>
             <% end %>
             <td>
               <%= link_to edit_product_path(product) do %>
