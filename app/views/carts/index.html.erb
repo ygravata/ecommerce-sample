@@ -1,14 +1,10 @@
 <div class="container" style="height:100vh;">
 
   <% unless @cart.nil? %>
-
     <h2 class="text-left pt-3 " style="font-size: 40px;font-weight:bold; color:white;">Your items:</h2>
-
     <div class="row pb-5">
-
       <div class="col-6">
         <% @cart.cart_products.order(created_at: :desc).each do |cart_product| %>
-
           <div class="card-product">
             <%= image_tag cart_product.product.image_url,
             src: 'Image Not Found',
@@ -16,49 +12,32 @@
             <div class="d-flex justify-content-between" style="width:75%;">
               <div class="card-product-infos">
                 <h2 class="card-product-title"><%= cart_product.product.name %></h2>
-
                 <div class="d-flex">
-                <p class="info-quantity card-product-paragraph">Quantity:</p>
+                  <p class="info-quantity card-product-paragraph">Quantity:</p>
                   <%= link_to  reduce_unit_cart_product_path(cart_product), method: :patch do %>
                     <i class="fas fa-minus-square" style="padding: 0 4px; margin-top: 10px; font-size: 18px; color:#72B8DB;"></i>
                   <% end %>
-
-                    <p class="info-quantity card-product-paragraph"><%= cart_product.quantity %></p>
-
-
+                  <p class="info-quantity card-product-paragraph"><%= cart_product.quantity %></p>
                   <%= link_to  add_unit_cart_product_path(cart_product), method: :patch do %>
                     <i class="fas fa-plus-square" style="padding: 0 4px; margin-top: 10px; font-size: 18px; color:#72B8DB;"></i>
                   <% end %>
-
                 </div>
-
-
-
-
               </div>
-
               <div class="d-flex">
-
-              <p class="align-self-center info-price">R$ <%= number_with_precision(cart_product.product.price * cart_product.quantity, precision: 2, separator: ',', delimiter: '.') %></p>
-              <div class="align-self-end">
-                <%= link_to  cart_product_path(cart_product), method: :delete, data: { confirm: 'Are you sure?'} do %>
-                  <i class="fas fa-trash-alt align-self-end" style="font-size: 18px; color:gray;"></i>
-                <% end %>
-
-              </div>
+                <p class="align-self-center info-price">R$ <%= number_with_precision(cart_product.product.price * cart_product.quantity, precision: 2, separator: ',', delimiter: '.') %></p>
+                <div class="align-self-end">
+                  <%= link_to  cart_product_path(cart_product), method: :delete, data: { confirm: 'Are you sure?'} do %>
+                    <i class="fas fa-trash-alt align-self-end" style="font-size: 18px; color:gray;"></i>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>
-
         <% end %>
-
       </div>
-
       <div class="col-6">
-
         <div class="card-total">
           <h2 class="card-total-title">Checkout</h2>
-
           <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Subtotal
@@ -67,13 +46,12 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Descontos
               <span>- R$
-              <% unless @cart.discount.nil? %>
-                <%= number_with_precision(@cart.discount, precision: 2, separator: ',', delimiter: '.')%>
-              <% else %>
-                <%= number_with_precision(0, precision: 2, separator: ',', delimiter: '.')%>
-              <% end %>
-
-                </span>
+                <% unless @cart.discount.nil? %>
+                  <%= number_with_precision(@cart.discount, precision: 2, separator: ',', delimiter: '.')%>
+                <% else %>
+                  <%= number_with_precision(0, precision: 2, separator: ',', delimiter: '.')%>
+                <% end %>
+              </span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Total
@@ -81,42 +59,30 @@
             </li>
             <li>
               <%= form_tag check_coupon_cart_path(@cart), method: :get do %>
-              <div class="d-flex p-2 justify-content-between">
-
-                <%= text_field_tag :coupon, params[:coupon], class: "form-control form-rounded", style: "width:75%;", placeholder: "Type your discount code!", :maxlength => 9 %>
-                <%= submit_tag "Get discount", class: "btn form-rounded", style: "background-color: #78C3EB; color: white;"%>
-              </div>
+                <div class="d-flex p-2 justify-content-between">
+                  <%= text_field_tag :coupon, params[:coupon], class: "form-control form-rounded", style: "width:75%;", placeholder: "Type your discount code!", :maxlength => 9 %>
+                  <%= submit_tag "Get discount", class: "btn form-rounded", style: "background-color: #78C3EB; color: white;"%>
+                </div>
               <% end %>
             </li>
           </ul>
         </div>
-
         <div class="d-flex justify-content-between">
           <%= link_to cart_path(@cart),class:"btn text-left",style:"background-color:#d33c21; color:white;", method: :delete, data: { confirm: 'Are you sure?'} do %>
             Empty Cart
           <% end %>
-
-
           <div class="text-right">
             <%= link_to "Proceed to Checkout", checkout_cart_path(@cart), method: :patch, data: { confirm: 'Take the time to look through your products one last time before sending your order!'}, class:"btn text-right", style:"background-color:#3D8116; color:white;" %>
           </div>
-
         </div>
-
-
       </div>
-
     </div>
-
   <% else %>
-
     <div class="container" style="height: 100vh; padding-top: 15%;">
       <h2 class="text-center " style="font-size: 50px;font-weight:bold; color:white;">Select something to buy and comeback to checkout!</h2>
       <div class="text-center" style="font-size: 50px;font-weight:bold; color:white;">
         <i class="far fa-smile-wink"></i>
       </div>
     </div>
-
   <% end %>
-
 </div>

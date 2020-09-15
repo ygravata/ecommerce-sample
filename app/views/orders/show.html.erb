@@ -1,23 +1,20 @@
 <div class="container">
-
   <div class="gravata-container">
-
-      <div class="text-center d-flex">
-        <div class="pr-3">
-          <%= link_to my_orders_orders_path do %>
-            <p style="color:white; text-decoration: none;">Back to My Orders</p>
-          <% end %>
-        </div>
-        <div>
-          <% if current_user.admin? %>
-            <%= link_to orders_path do %>
-              <p style="color:white; text-decoration: none;">Back to Manage Orders</p>
-             <% end %>
-          <% end %>
-        </div>
+    <div class="text-center d-flex">
+      <div class="pr-3">
+        <%= link_to my_orders_orders_path do %>
+          <p style="color:white; text-decoration: none;">Back to My Orders</p>
+        <% end %>
       </div>
+      <div>
+        <% if current_user.admin? %>
+          <%= link_to orders_path do %>
+            <p style="color:white; text-decoration: none;">Back to Manage Orders</p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
     <div class="card mt-2 mb-4" style="color:#263241;width:40%;">
-
       <div class="card-body">
         <h5 class="card-title">Order Nº <%= @order.id %></h5>
         <h6 class="card-subtitle mb-2 text-muted">Client: <%= @order.user.first_name %> <%= @order.user.last_name %></h6>
@@ -25,8 +22,6 @@
         <h6 class="card-subtitle mb-2 text-muted">Date: <%= @order.created_at.strftime("%d/%m/%y") %></h6>
       </div>
     </div>
-
-
     <table class="table table-dark table-style">
       <thead>
         <tr>
@@ -41,15 +36,14 @@
       <tbody>
         <tr>
           <% @cart_products.each do |cart_product| %>
-
-          <td class="table-secondary" style="color:#263241;"><%= cart_product.product.name %></td>
-          <td class="table-secondary" style="color:#263241;"><%= cart_product.quantity %></td>
-          <td class="table-secondary" style="color:#263241;">R$ <%= number_with_precision(cart_product.product.price, precision: 2, separator: ',', delimiter: '.') %></td>
-          <td class="table-secondary" style="color:#263241;">R$ <%= number_with_precision(cart_product.cart_product_total(cart_product), precision: 2, separator: ',', delimiter: '.') %></td>
-          <td class="table-secondary" style="color:#263241;">-</td>
-          <td class="table-secondary" style="color:#263241;">R$ <%= number_with_precision(cart_product.cart_product_total(cart_product), precision: 2, separator: ',', delimiter: '.') %></td>
+            <td class="table-secondary" style="color:#263241;"><%= cart_product.product.name %></td>
+            <td class="table-secondary" style="color:#263241;"><%= cart_product.quantity %></td>
+            <td class="table-secondary" style="color:#263241;">R$ <%= number_with_precision(cart_product.product.price, precision: 2, separator: ',', delimiter: '.') %></td>
+            <td class="table-secondary" style="color:#263241;">R$ <%= number_with_precision(cart_product.cart_product_total(cart_product), precision: 2, separator: ',', delimiter: '.') %></td>
+            <td class="table-secondary" style="color:#263241;">-</td>
+            <td class="table-secondary" style="color:#263241;">R$ <%= number_with_precision(cart_product.cart_product_total(cart_product), precision: 2, separator: ',', delimiter: '.') %></td>
+          <% end %>
         </tr>
-        <% end %>
         <tr>
           <th scope="col">Total</th>
           <th scope="col"><%=@order.cart.total_quantity(@order.cart.cart_products) %></th>
@@ -61,10 +55,7 @@
       </tbody>
     </table>
   </div>
-
-
-
 </div>
 
 
-  </div>
+</div>

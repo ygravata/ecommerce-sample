@@ -3,19 +3,14 @@
     <div class="text-center pb-5" style="">
       <h2>Edit Product</h2>
     </div>
-
     <div class="text-center">
-
-        <div class="pb-4" style="color:#263241;font-weight: bold; font-size:22px;">Coupon Code: <span> <%= @coupon.coupon_code %></span></div>
+      <div class="pb-4" style="color:#263241;font-weight: bold; font-size:22px;">Coupon Code: <span> <%= @coupon.coupon_code %></span></div>
       <%= simple_form_for @coupon do |f| %>
         <%= f.input :discount, collection: %w[5 10 15 20] , wrapper: :horizontal_collection_inline %>
         <div>
           <%= f.button :submit, class: "btn-primary" %>
         </div>
       <% end %>
-
     </div>
-
   </div>
-
 </div>

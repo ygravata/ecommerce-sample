@@ -21,37 +21,27 @@
         time:          :horizontal_multi_select
       } do |f| %>
 
-      <%= f.error_notification %>
-
-      <%= f.input :name %>
-
-      <%= f.input :brand  %>
-
-      <%= f.input :category %>
-
-      <%= f.input :image_url %>
-
-      <%= f.input :for %>
-
-      <%= f.input :desc1 %>
-
-      <%= f.input :desc2 %>
-      <%= f.input :specs_name %>
-      <%= f.input :specs_desc %>
-      <%= f.input :price %>
-
-      <div class="form-group row mb-0">
-        <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
-          <div>
-            <%= f.button :button, "Erase", type: "reset", class: "btn-secondary" %>
-          </div>
-          <div>
-            <%= f.button :submit, class: "btn-primary" %>
+        <%= f.error_notification %>
+        <%= f.input :name %>
+        <%= f.input :brand  %>
+        <%= f.input :category %>
+        <%= f.input :image_url %>
+        <%= f.input :for %>
+        <%= f.input :desc1 %>
+        <%= f.input :desc2 %>
+        <%= f.input :specs_name %>
+        <%= f.input :specs_desc %>
+        <%= f.input :price %>
+        <div class="form-group row mb-0">
+          <div class="col-sm-9 offset-sm-3 d-flex justify-content-between">
+            <div>
+              <%= f.button :button, "Erase", type: "reset", class: "btn-secondary" %>
+            </div>
+            <div>
+              <%= f.button :submit, class: "btn-primary" %>
+            </div>
           </div>
         </div>
-      </div>
     <% end %>
-
   </div>
-
 </div>
