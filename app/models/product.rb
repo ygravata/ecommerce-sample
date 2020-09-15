@@ -3,6 +3,7 @@ class Product < ApplicationRecord
 
   belongs_to :user
   has_many :cart_products
+
   # has_one_attached :photo
 
   validates :name, presence: true
@@ -13,12 +14,12 @@ class Product < ApplicationRecord
 
   # validates :quantity, presence: true
 
+  def self.active_products
+    Product.where(active: true)
+  end
 
   private
 
-  def self.active_products
-    Product.all
-  end
 
   def self.categories
     Product.pluck(:category).uniq

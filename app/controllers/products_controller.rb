@@ -6,9 +6,9 @@ class ProductsController < ApplicationController
 
   def index
     if params[:query].present?
-      @products = Product.active_products.global_search(params[:query]).order(created_at: :desc)
+      @products = Product.all.global_search(params[:query]).order(created_at: :desc)
     else
-      @products = Product.active_products.order(created_at: :desc)
+      @products = Product.all.order(created_at: :desc)
     end
   end
 
