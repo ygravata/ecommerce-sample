@@ -5,8 +5,10 @@ class CartsController < ApplicationController
   before_action :cart_items_count, only:[:index]
 
   def index
-    @cart = current_user.carts.find_by_status("Active")
-    cart_total_amount
+    unless current_user.nil?
+      @cart = current_user.carts.find_by_status("Active")
+      cart_total_amount
+    end
   end
 
   def checkout

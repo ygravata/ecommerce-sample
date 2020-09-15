@@ -1,14 +1,14 @@
 class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :cart_find
+  before_action :set_cart
   before_action :cart_items_count, only:[:index, :show]
 
   def index
     if params[:query].present?
-      @products = Product.all.global_search(params[:query]).order(created_at: :desc)
+      @products = Product.active_products.global_search(params[:query]).order(created_at: :desc)
     else
-      @products = Product.all.order(created_at: :desc)
+      @products = Product.active_products.order(created_at: :desc)
     end
   end
 
@@ -18,12 +18,14 @@ class ProductsController < ApplicationController
   end
 
   def upload
+    # action to upload yaml file with new products into the db
     @result = YAML.load_file(params[:upload][:file])
     add_products(@result)
     redirect_to(list_products_path)
   end
 
   def list
+    # admin products management view
     @products = Product.active_products.all.order(created_at: :desc)
   end
 
@@ -42,6 +44,7 @@ class ProductsController < ApplicationController
       render :new
     end
   end
+
   def edit
     # authorize @product
   end
@@ -52,12 +55,15 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+    # the destroy method won't really destroy,
+    # will only set the product as active=false (so we keep the product relations, as orders or carts)
     @product.active = false
     @product.save!
     redirect_to list_products_path
   end
 
   def add_to_cart
+    #will add the products to the cart, grouping them by id (so we don't have duplicates in the checkout)
     unless @cart
       @cart = Cart.new(status: "Active", user: current_user)
       @cart.save
@@ -73,7 +79,6 @@ class ProductsController < ApplicationController
     end
 
     # authorize @cart_product
-
     if @cart_product.save
         redirect_to products_path, notice: 'Product added to cart!'
     end
@@ -91,8 +96,8 @@ class ProductsController < ApplicationController
     # authorize @product
   end
 
-  def cart_find
-    if !current_user.nil?
+  def set_cart
+    unless current_user.nil?
       @cart = current_user.carts.find_by_status("Active")
     end
   end
@@ -122,9 +127,7 @@ class ProductsController < ApplicationController
       end
 
       new_product.desc2 = new_product.desc2.gsub(/<p>|<\/p>/, '')
-
       new_product.user = current_user
-
       new_product.save!
     end
   end
